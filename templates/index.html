@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Film queue</title>
+		<!-- add css -->
+	</head>
+	<body>
+		{% include "header.html" %}
+		{% if not page or page == "queue" %}
+			{% include "queue.html" %}
+		{% elif page == "flist" %}
+			{% include "filmlist.html" %}
+		{% elif page == "wlist" %}
+			{% include "wishlist.html" %}
+		{% endif %}
+		{% include "footer.html" %}
+	</body>
+</html>

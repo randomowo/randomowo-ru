@@ -1,0 +1,42 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Film list</title>
+	<!-- add css -->
+	<script type="text/javascript">
+		window.onload = function () {
+			{% for film in films %}
+			console.log('{{film}}');
+			var n = document.getElementById('{{film}}');
+			n.style.display = 'none';
+			document.getElementById('{{film}}').setAttribute('aria-expanded', 'false');
+			{% endfor %}
+
+		}
+
+		function toggle(id, id2) {
+			var n = document.getElementById(id);
+			if (n.style.display != 'none')
+			{
+				n.style.display = 'none';
+				document.getElementById(id2).setAttribute('aria-expanded', 'false');
+			}
+			else
+			{
+				n.style.display = '';
+				document.getElementById(id2).setAttribute('aria-expanded', 'true');
+			}
+		}
+	</script>
+</head>
+<h1> Film List: </h1>
+<ol>
+	{% for film in films %}
+	<li> {{ film }} </li>
+	<a aria-expanded="false" id="{{film.name}}" href="#" onclick="toggle('{{film}}', '{{film.name}}')">challenges</a>
+	<ul id="{{film}}">
+		{% for challenge in challenges %}
+		<li>{{challenge}}</li>
+		{% endfor %}
+	</ul>
+	{% endfor %}
+</ol>

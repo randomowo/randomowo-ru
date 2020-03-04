@@ -1,0 +1,24 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Wish list</title>
+	<!-- add css -->
+</head>
+<h1> Wish list: </h1>
+<ol>
+	{% for wish in wishes %}
+	<li> {{ wish }} </li>
+	{% endfor %}
+</ol>
+<hr>
+<h2> Make a wish: </h2>
+<form action="/cinema/" method="POST">
+	{% csrf_token %}
+	<label for="name">Film name:</label><br>
+	<input type="text" id="name" name="name"><br><br>
+	<label for="film_url">Film url (wiki, kinopoisk etc.) [optional]:</label><br>
+	<input type="text" id="film_url" name="film_url"><br><br>
+	<label for="username">Your username:</label><br>
+	<input type="text" id="username" name="username"><br><br>
+	<input type="submit" name="wlist" value="Wish">
+</form>
+{% if added %} <p> Added </p> {% endif %}
