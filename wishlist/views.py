@@ -1,25 +1,30 @@
 """
 """
 from django.shortcuts import render
+from wishlist.forms import WishForm
 from wishlist.models import Wish
 
 
 def wish_list(request):
     """
     """
-    print("lolol")
     added = False
     if request.method == "POST":
-        name = request.POST.get("name")
-        film_url = request.POST.get("film_url")
-        username = request.POST.get("username")
-        if name and username and Wish.objects.filter(name=name).count() == 0:
-            new_wish = Wish(name=name, username=username, film_url=film_url)
-            new_wish.save()
-            added = True
-    wishes = Wish.objects.all()
+        form = WishForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            if not Wish.objects.filter(title=title):
+                username = form.cleaned_data["username"]
+                film_url = form.cleaned_data["film_url"]
+
+                Wish.objects.create(title=title,
+                                    username=username,
+                                    film_url=film_url)
+                added = True
+    wishes = Wish.objects.order_by("-pub_date")
     template_name = "index.html"
     context = {
+        "form": WishForm(),
         "page": "wlist",
         "wishes": wishes,
         "added": added,

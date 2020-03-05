@@ -1,2 +1,5 @@
-# web_filmlist
-basic web application for film list with some features
+Requirements
+---
+Django>=3.0.3
+
+
