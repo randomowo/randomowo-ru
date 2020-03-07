@@ -1,14 +1,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Film list</title>
+	<title>Challenges</title>
 	<!-- add css -->
 	<script type="text/javascript">
 		window.onload = function () {
-			{% for film in films %}
-			console.log('{{film}}');
-			var n = document.getElementById('{{film}}');
+			{% for ch in challenges %}
+			var n = document.getElementById('{{ch.task}}');
 			n.style.display = 'none';
-			document.getElementById('{{film}}').setAttribute('aria-expanded', 'false');
+			document.getElementById('{{ch.task}}').setAttribute('aria-expanded', 'false');
 			{% endfor %}
 
 		}
@@ -28,14 +27,17 @@
 		}
 	</script>
 </head>
-<h1> Film List: </h1>
+<h1> Challenges: </h1>
 <ol>
-	{% for film in films %}
-	<li> {{ film }} </li>
-	<a aria-expanded="false" id="{{film.name}}" href="#" onclick="toggle('{{film}}', '{{film.name}}')">challenges</a>
-	<ul id="{{film}}">
-		{% for challenge in challenges %}
-		<li>{{challenge}}</li>
+	{% for ch in challenges %}
+	<li>
+		<a aria-expanded="false" id="{{ch.id}}" href="#" onclick="toggle('{{ch.task}}', '{{ch.id}}')">
+			{{ch}}
+		</a>
+	</li>
+	<ul id="{{ch.task}}">
+		{% for film in ch.films.all %}
+		<li>{{film}}</li>
 		{% endfor %}
 	</ul>
 	{% endfor %}

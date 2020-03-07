@@ -1,8 +1,21 @@
 from django.db import models
+from filmlist.models import Film
 
 
 class Challenge(models.Model):
-    task = models.CharField(max_length=100, unique=True, db_index=True, verbose_name="Challenge?")
+    films = models.ManyToManyField(
+        Film,
+        related_name="challenges",
+        verbose_name="Films",
+    )
+    task = models.CharField(
+        max_length=200,
+        verbose_name="Task",
+    )
+    is_done = models.BooleanField(
+        default=False,
+        verbose_name="Is done?",
+    )
 
     class Meta:
         ordering = ["task"]

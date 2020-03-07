@@ -3,17 +3,17 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Film queue</title>
+		<title>Film list</title>
 		<!-- add css -->
 	</head>
 	<body>
 		{% include "header.html" %}
-		{% if not page or page == "queue" %}
-			{% include "queue.html" %}
-		{% elif page == "flist" %}
-			{% include "filmlist.html" %}
+		{% if not page or page == "flist" %}
+			{% include "flist.html" %}
+		{% elif page == "chlist" %}
+			{% include "chlist.html" %}
 		{% elif page == "wlist" %}
-			{% include "wishlist.html" %}
+			{% include "wlist.html" %}
 		{% endif %}
 		{% include "footer.html" %}
 	</body>

@@ -6,7 +6,7 @@
 <h1> Wish list: </h1>
 <ol>
 	{% for wish in wishes %}
-	<li> {{wish}} </li>
+	<li> {{wish.title}} by <b>{{wish.username}}</b> </li>
 	{% endfor %}
 </ol>
 <hr>

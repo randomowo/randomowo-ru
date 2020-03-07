@@ -13,4 +13,4 @@ class Wish(models.Model):
         verbose_name_plural = "Wishlist"
 
     def __str__(self):
-        return "{} by user {}".format(self.title, self.username)
+        return "{} by {}".format(self.title, self.username)
