@@ -1,6 +1,9 @@
 """
 """
+from django import forms
 from django.contrib import admin
+from filmlist.forms import FilmAdminForm
+from filmlist.forms import SeriesAdminForm
 from filmlist.models import Actor
 from filmlist.models import Director
 from filmlist.models import Film
@@ -11,7 +14,17 @@ class FilmAdmin(admin.ModelAdmin):
     """
     """
 
-    list_display = ["title"]
+    form = FilmAdminForm
+    fields = [
+        "title",
+        "year",
+        "director",
+        "actor",
+        "rating",
+        "is_watched",
+        "is_movie",
+        "episodes",
+    ]
 
 
 class ActorAdmin(admin.ModelAdmin):
@@ -32,6 +45,7 @@ class SeriesAdmin(admin.ModelAdmin):
     """
     """
 
+    form = SeriesAdminForm
     list_display = ["film"]
 
 

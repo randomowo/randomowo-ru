@@ -3,10 +3,20 @@
 	<title>Film queue</title>
 	<!-- add css -->
 </head>
-<h1> Film list: </h1>
+<h1>Film list:</h1>
 <ol>
 	{% for film in films %}
-	<li> {{film}} </li>
+	<li>
+		{% if film.is_movie %}
+		<div id="film">
+			{{film.title}} in [{{film.year}}] by {{film.director.name}}
+		</div>
+		{% else %}
+		<div id="serial">
+			{{film.title}} with {{film.episodes}} ep in [{{film.year}}] by {{film.director.name}}
+		</div>
+		{% endif %}
+	</li>
 	{% endfor %}
 </ol>
 

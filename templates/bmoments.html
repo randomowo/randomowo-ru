@@ -1,0 +1,18 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Best moments</title>
+	<!-- add css -->
+	<style>
+img {
+	max-width: 80%;
+}
+	</style>
+</head>
+<h1>Best moments:</h1>
+<center>
+	{% if images %}
+	{% for image in images %}
+		<img src="{{image}}"><br/>
+	{% endfor %}
+	{% endif %}
+</center>

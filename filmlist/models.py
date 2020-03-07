@@ -11,6 +11,7 @@ class Actor(models.Model):
 
     name = models.CharField(
         max_length=100,
+        unique=True,
         verbose_name="Actor name",
     )
 
@@ -29,6 +30,7 @@ class Director(models.Model):
 
     name = models.CharField(
         max_length=100,
+        unique=True,
         verbose_name="Director name",
     )
 
@@ -39,6 +41,28 @@ class Director(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Series(models.Model):
+    """
+    """
+
+    film = models.ForeignKey(
+        "Film",
+        on_delete=models.CASCADE,
+        related_name="series",
+        verbose_name="Film",
+    )
+
+    episodes = models.IntegerField(verbose_name="Total episodes", )
+
+    class Meta:
+        ordering = ["film"]
+        verbose_name = "Series"
+        verbose_name_plural = "Series"
+
+    def __str__(self):
+        return "{} with {} ep".format(self.film.title, self.episodes)
 
 
 class Film(models.Model):
@@ -59,6 +83,8 @@ class Film(models.Model):
     actor = models.ForeignKey(
         Actor,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name="film",
         verbose_name="Actor",
     )
@@ -76,27 +102,11 @@ class Film(models.Model):
 
     class Meta:
         ordering = ["title"]
-        verbose_name = "Film list"
-        verbose_name_plural = "Film list"
+        verbose_name = "Film"
+        verbose_name_plural = "Film"
 
     def __str__(self):
         return "{} ({})".format(self.title, self.year)
 
-
-class Series(models.Model):
-    """
-    """
-
-    film = models.ForeignKey(
-        Film,
-        on_delete=models.CASCADE,
-        related_name="series",
-        verbose_name="Film",
-    )
-
-    episodes = models.IntegerField(verbose_name="Total episodes", )
-
-    class Meta:
-        ordering = ["film"]
-        verbose_name = "Series"
-        verbose_name_plural = "Series"
+    def episodes(self):
+        return Series.objects.get(film__id=self.id).episodes
