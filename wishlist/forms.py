@@ -1,6 +1,8 @@
 """
 """
 from django import forms
+from filmlist.models import Film
+from wishlist.models import Wish
 
 
 class WishForm(forms.Form):
@@ -11,3 +13,14 @@ class WishForm(forms.Form):
     username = forms.CharField(label="\nYour username ", max_length=100)
     film_url = forms.URLField(label="\nURL to kinopoisk/wiki/etc ",
                               required=False)
+
+    def clean_title(self):
+        """
+        """
+        title = self.cleaned_data.get("title", None)
+        if Film.objects.filter(title=title).count() != 0:
+            raise forms.ValidationError("Already in film list")
+        elif Wish.objects.filter(title=title).count() != 0:
+            raise forms.ValidationError("Already in wish list")
+        else:
+            return title

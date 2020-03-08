@@ -9,7 +9,12 @@
 	<li>
 		{% if film.is_movie %}
 		<div id="film">
-			{{film.title}} in [{{film.year}}] by {{film.director.name}}
+			{{film.title}} in [{{film.year}}] by {{film.director.name}} 
+		{% if film.is_watched %}
+			[x]
+		{% else %}
+			[ ]
+		{% endif %}
 		</div>
 		{% else %}
 		<div id="serial">

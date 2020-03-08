@@ -1,7 +1,6 @@
 """
 """
 from django import forms
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from filmlist.models import Film
@@ -30,14 +29,11 @@ class FilmAdminForm(forms.ModelForm):
     def save(self, commit=True):
         """
         """
-        print("=================")
         episodes = self.cleaned_data.get("episodes", None)
         film = super(FilmAdminForm, self).save(commit=commit)
-        if not film.is_movie and episodes is not None:
-            print("s")
-            film.save()
-            Series.objects.create(film=film, episodes=episodes)
         film.save()
+        if not film.is_movie and episodes is not None:
+            Series.objects.create(film=film, episodes=episodes)
         return film
 
     class Meta:

@@ -13,14 +13,12 @@ def wish_list(request):
         form = WishForm(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
-            if not Wish.objects.filter(title=title):
-                username = form.cleaned_data["username"]
-                film_url = form.cleaned_data["film_url"]
-
-                Wish.objects.create(title=title,
-                                    username=username,
-                                    film_url=film_url)
-                added = True
+            username = form.cleaned_data["username"]
+            film_url = form.cleaned_data["film_url"]
+            Wish.objects.create(title=title,
+                                username=username,
+                                film_url=film_url)
+            added = True
     wishes = Wish.objects.order_by("-pub_date")
     template_name = "index.html"
     context = {
