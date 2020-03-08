@@ -22,6 +22,8 @@ class FilmAdminForm(forms.ModelForm):
         episodes = self.cleaned_data.get("episodes", None)
         if not is_movie and episodes is None:
             raise forms.ValidationError("Episodes must be 1 or greater")
+        elif is_movie and episodes is not None and episodes != 0:
+            raise forms.ValidationError("Episodes must be 0 on null")
         else:
             return episodes
 
