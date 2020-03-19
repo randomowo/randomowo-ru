@@ -17,6 +17,7 @@ class FilmAdmin(admin.ModelAdmin):
     form = FilmAdminForm
     fields = [
         "title",
+        "film_url",
         "year",
         "director",
         "actor",

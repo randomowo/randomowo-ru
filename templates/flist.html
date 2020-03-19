@@ -10,7 +10,7 @@
 		{% if film.is_movie %}
 			<div id="film">
 				{% if film.film_url %}
-					<a href={{film.film_rul}}>
+					<a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
 						{{film.html_text}}
 					</a>
 				{% else %}

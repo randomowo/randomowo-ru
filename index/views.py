@@ -12,7 +12,6 @@ def index_page(request):
     """
     """
     if request.method == "POST":
-        print(request.POST)
         if "chlist" in request.POST:
             return challenge_list(request)
         elif "flist" in request.POST:
