@@ -1,5 +1,7 @@
 """
 """
+from challenges.models import Challenge
+from challenges.models import FilmChallenge
 from django import forms
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
@@ -17,6 +19,8 @@ class FilmAdminForm(forms.ModelForm):
     )
 
     def clean_episodes(self):
+        """
+        """
         is_movie = self.cleaned_data.get("is_movie", None)
         episodes = self.cleaned_data.get("episodes", None)
         if not is_movie and episodes is None:
@@ -33,7 +37,7 @@ class FilmAdminForm(forms.ModelForm):
         film = super(FilmAdminForm, self).save(commit=commit)
         film.save()
         if not film.is_movie and episodes is not None:
-            Series.objects.create(film=film, episodes=episodes)
+            Series.objects.update_or_create(film=film, episodes=episodes)
         return film
 
     class Meta:

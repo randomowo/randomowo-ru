@@ -14,8 +14,8 @@ class BestImage(models.Model):
 
     class Meta:
         ordering = ["image"]
-        verbose_name = "Image best moment"
-        verbose_name_plural = "Image best moment"
+        verbose_name = "Image"
+        verbose_name_plural = "Image"
 
     def __str__(self):
         return "{}{}".format(settings.MEDIA_URL, self.image)

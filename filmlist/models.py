@@ -88,13 +88,17 @@ class Film(models.Model):
         related_name="film",
         verbose_name="Actor",
     )
-    is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
+    film_url = models.URLField(
+        verbose_name="Url to film page",
+        blank=True,
+    )
     rating = models.FloatField(
         validators=[MinValueValidator(0.01),
                     MaxValueValidator(10.0)],
         blank=True,
         null=True,
     )
+    is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
     is_movie = models.BooleanField(
         default=False,
         verbose_name="Is movie?",
@@ -108,5 +112,26 @@ class Film(models.Model):
     def __str__(self):
         return "{} ({})".format(self.title, self.year)
 
+    @property
     def episodes(self):
+        """
+        """
         return Series.objects.get(film__id=self.id).episodes
+
+    @property
+    def html_text(self):
+        """
+        """
+        if self.is_movie:
+            return "{} in [{}] by {}".format(
+                self.title,
+                self.year,
+                self.director.name
+            )
+        else:
+            return "{} with {} ep in [{}] by {}".format(
+                self.title,
+                self.episodes,
+                self.year,
+                self.director.name
+            )

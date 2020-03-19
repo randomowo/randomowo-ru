@@ -8,18 +8,24 @@
 	{% for film in films %}
 	<li>
 		{% if film.is_movie %}
-		<div id="film">
-			{{film.title}} in [{{film.year}}] by {{film.director.name}} 
-		{% if film.is_watched %}
-			[x]
-		{% else %}
-			[ ]
-		{% endif %}
-		</div>
-		{% else %}
-		<div id="serial">
-			{{film.title}} with {{film.episodes}} ep in [{{film.year}}] by {{film.director.name}}
-		</div>
+			<div id="film">
+				{% if film.film_url %}
+					<a href={{film.film_rul}}>
+						{{film.html_text}}
+					</a>
+				{% else %}
+						{{film.html_text}}
+				{% endif %}
+				{% if film.is_watched %}
+					[x]
+				{% else %}
+					[ ]
+				{% endif %}
+			</div>
+			{% else %}
+			<div id="serial">
+				{{film.html_text}}
+			</div>
 		{% endif %}
 	</li>
 	{% endfor %}
