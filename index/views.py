@@ -5,6 +5,7 @@ from challenges.views import challenge_list
 from django.http import HttpRequest
 from django.shortcuts import render
 from filmlist.views import film_list
+from filmlist.views import random_film
 from wishlist.views import wish_list
 
 
@@ -20,5 +21,7 @@ def index_page(request):
             return wish_list(request)
         elif "bmoments" in request.POST:
             return best_image_list(request)
+        elif "random" in request.POST:
+            return random_film(request)
     else:
         return film_list(request)
