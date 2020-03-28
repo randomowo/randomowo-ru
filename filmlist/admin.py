@@ -15,6 +15,10 @@ class FilmAdmin(admin.ModelAdmin):
     """
 
     form = FilmAdminForm
+    search_fields = [
+        "title",
+        "year",
+    ]
     fields = [
         "title",
         "film_url",
