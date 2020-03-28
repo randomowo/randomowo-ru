@@ -19,7 +19,7 @@ class FilmChallenge(models.Model):
     )
 
     class Meta:
-        ordering = ["film"]
+        ordering = ["film__year"]
         verbose_name = "Challenged film"
         verbose_name_plural = "Challenged film"
 

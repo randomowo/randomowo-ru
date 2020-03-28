@@ -8,7 +8,7 @@ from filmlist.models import Film
 def film_list(request):
     """
     """
-    films = Film.objects.all()
+    films = Film.objects.order_by("is_watched")
     template_name = "index.html"
     context = {
         "page": "flist",

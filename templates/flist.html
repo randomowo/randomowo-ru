@@ -9,6 +9,9 @@
 	<li>
 		{% if film.is_movie %}
 			<div id="film">
+		{% else %}
+			<div id="serial">
+		{% endif %}
 				{% if film.film_url %}
 					<a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
 						{{film.html_text}}
@@ -22,11 +25,6 @@
 					[ ]
 				{% endif %}
 			</div>
-			{% else %}
-			<div id="serial">
-				{{film.html_text}}
-			</div>
-		{% endif %}
 	</li>
 	{% endfor %}
 </ol>
