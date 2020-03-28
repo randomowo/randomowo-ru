@@ -47,7 +47,7 @@ class Series(models.Model):
     """
     """
 
-    film = models.ForeignKey(
+    film = models.OneToOneField(
         "Film",
         on_delete=models.CASCADE,
         related_name="series",

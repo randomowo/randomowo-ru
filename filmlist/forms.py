@@ -18,6 +18,13 @@ class FilmAdminForm(forms.ModelForm):
         validators=[MinValueValidator(1)],
     )
 
+    def __init__(self, *args, **kwargs):
+        super(FilmAdminForm, self).__init__(*args, **kwargs)
+        film = self.instance
+        if film.title:
+            series = Series.objects.filter(film=film).first()
+            self.initial["episodes"] = series.episodes if series else None
+
     def clean_episodes(self):
         """
         """
@@ -37,7 +44,12 @@ class FilmAdminForm(forms.ModelForm):
         film = super(FilmAdminForm, self).save(commit=commit)
         film.save()
         if not film.is_movie and episodes is not None:
-            Series.objects.update_or_create(film=film, episodes=episodes)
+            series = Series.objects.filter(film=film).first()
+            if series:
+                series.episodes = episodes
+                series.save()
+            else:
+                Series.objects.create(film=film, episodes=episodes)
         return film
 
     class Meta:
@@ -47,6 +59,7 @@ class FilmAdminForm(forms.ModelForm):
 class SeriesAdminForm(forms.ModelForm):
     """
     """
+
     def __init__(self, *args, **kwargs):
         super(SeriesAdminForm, self).__init__(*args, **kwargs)
         self.fields["film"] = forms.ModelChoiceField(
