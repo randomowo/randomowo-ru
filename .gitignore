@@ -2,4 +2,5 @@ media
 static
 */migrations
 */__pycache__
+__pycache__
 webfilmlist/settings.py
