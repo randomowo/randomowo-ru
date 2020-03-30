@@ -1,0 +1,38 @@
+@font-face {
+    font-family: Podkova;
+    src: url('/static/index/fonts/Podkova-Regular.ttf');
+}
+
+body {
+    font-family: Podkova;
+    font-size: 20px;
+    color: #0C1A46;
+    background-color: #E1E1E1;
+    margin: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link, a:visited, a:active {
+    color: #5C6A96;
+}
+
+a:hover {
+    color: #8E9CC8;
+}
+
+.button {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    background-color: #E1E1E1;
+    font-family: Podkova;
+    font-size: 20px;
+    transition-duration: 0.7s;
+} 
+
+.button:hover {
+    background-color: #D0D0D0;
+}

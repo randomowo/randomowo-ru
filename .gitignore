@@ -1,5 +1,6 @@
 media
-static
+static/admin
+static/*/fonts
 */migrations
 */__pycache__
 __pycache__
