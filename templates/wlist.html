@@ -1,16 +1,24 @@
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Wish list</title>
-	<!-- add css -->
-</head>
-<h1> Wish list: </h1>
+<div class="title">
+	Wish list:
+</div>
 <ol>
 	{% for wish in wishes %}
-	<li> {{wish.title}} by <b>{{wish.username}}</b> </li>
+	<li>
+		{% if wish.film_url %}
+			<a href="{{wish.film_url}}" target="_blank" rel="noopener noreferrer">
+				{{wish.title}}
+			</a>
+		{% else %}
+				{{wish.title}}
+		{% endif %}
+		by <b>{{wish.username}}</b>
+	</li>
 	{% endfor %}
 </ol>
 <hr>
-<h2> Make a wish: </h2>
+<div class="title">
+	Make a wish:
+</div>
 <form action="/cinema/" method="POST">
 	{% csrf_token %}
 	{{form|linebreaks}}

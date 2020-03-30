@@ -1,33 +1,29 @@
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Challenges</title>
-	<!-- add css -->
-	<script type="text/javascript">
+	<script type ="text/javascript">
 		window.onload = function () {
 			{% for ch in challenges %}
-			var n = document.getElementById('{{ch.task}}');
-			n.style.display = 'none';
-			document.getElementById('{{ch.task}}').setAttribute('aria-expanded', 'false');
+				var n = document.getElementById('{{ch.task}}');
+				n.style.display = 'none';
+				document.getElementById('{{ch.task}}').setAttribute('aria-expanded', 'false');
 			{% endfor %}
 
 		}
 
 		function toggle(id, id2) {
 			var n = document.getElementById(id);
-			if (n.style.display != 'none')
-			{
+			if (n.style.display != 'none') {
 				n.style.display = 'none';
 				document.getElementById(id2).setAttribute('aria-expanded', 'false');
-			}
-			else
-			{
+			} else {
 				n.style.display = '';
 				document.getElementById(id2).setAttribute('aria-expanded', 'true');
 			}
 		}
 	</script>
 </head>
-<h1> Challenges: </h1>
+<div class="title">
+	Challenges:
+</div>
 <ol>
 	{% for ch in challenges %}
 	<li>

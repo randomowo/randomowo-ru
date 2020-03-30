@@ -123,15 +123,15 @@ class Film(models.Model):
         """
         """
         if self.is_movie:
-            return "{} in [{}] by {}".format(
-                self.title,
+            return "in [{}] by {} [{}]".format(
                 self.year,
-                self.director.name
+                self.director.name,
+                "x" if self.is_watched else ""
             )
         else:
-            return "{} with {} ep in [{}] by {}".format(
-                self.title,
+            return "with {} ep in [{}] by {} [{}]".format(
                 self.episodes,
                 self.year,
-                self.director.name
+                self.director.name,
+                "x" if self.is_watched else ""
             )

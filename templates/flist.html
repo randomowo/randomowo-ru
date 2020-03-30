@@ -1,9 +1,6 @@
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Film queue</title>
-	<!-- add css -->
-</head>
-<h1>Film list:</h1>
+<div class="title">
+	Film list:
+</div>
 <ol>
 	{% for film in films %}
 	<li>
@@ -14,15 +11,11 @@
 		{% endif %}
 				{% if film.film_url %}
 					<a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
-						{{film.html_text}}
+						{{film.title}}
 					</a>
+					{{film.html_text}}
 				{% else %}
-						{{film.html_text}}
-				{% endif %}
-				{% if film.is_watched %}
-					[x]
-				{% else %}
-					[ ]
+					{{film.title}}{{film.html_text}}
 				{% endif %}
 			</div>
 	</li>
