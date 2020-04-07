@@ -1,5 +1,8 @@
+"""
+"""
 import datetime
 
+import challenges as ch
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -88,10 +91,7 @@ class Film(models.Model):
         related_name="film",
         verbose_name="Actor",
     )
-    film_url = models.URLField(
-        verbose_name="Url to film page",
-        blank=True,
-    )
+    film_url = models.URLField(verbose_name="Url to film page", )
     rating = models.FloatField(
         validators=[MinValueValidator(0.01),
                     MaxValueValidator(10.0)],
@@ -113,25 +113,29 @@ class Film(models.Model):
         return "{} ({})".format(self.title, self.year)
 
     @property
+    def is_challenge(self):
+        """
+        """
+        return (True if ch.models.FilmChallenge.objects.filter(
+            film=self).first() else False)
+
+    @property
     def episodes(self):
         """
         """
         return Series.objects.get(film__id=self.id).episodes
 
     @property
-    def html_text(self):
+    def info(self):
         """
         """
         if self.is_movie:
-            return "in [{}] by {} [{}]".format(
-                self.year,
-                self.director.name,
-                "x" if self.is_watched else ""
-            )
+            return "in [{}] by {} [{}]".format(self.year, self.director.name,
+                                               "x" if self.is_watched else " ")
         else:
             return "with {} ep in [{}] by {} [{}]".format(
                 self.episodes,
                 self.year,
                 self.director.name,
-                "x" if self.is_watched else ""
+                "x" if self.is_watched else " ",
             )

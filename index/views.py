@@ -2,6 +2,7 @@
 """
 from bestmoments.views import best_image_list
 from challenges.views import challenge_list
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import render
 from filmlist.views import film_list
@@ -23,5 +24,12 @@ def index_page(request):
             return best_image_list(request)
         elif "random" in request.POST:
             return random_film(request)
+        elif "fcheck" in request.POST:
+            print("fcheck")
     else:
         return film_list(request)
+
+
+@login_required
+def admin_index_page(request):
+    pass

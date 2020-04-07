@@ -13,10 +13,14 @@
 					<a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
 						{{film.title}}
 					</a>
-					{{film.html_text}}
 				{% else %}
-					{{film.title}}{{film.html_text}}
+					{{film.title}}
 				{% endif %}
+				{{film.info}}
+				<form action="/cinema/" method="POST">
+					{% csrf_token %}
+					<input class="checkbox" type="radio" name="fcheck">
+				</form>
 			</div>
 	</li>
 	{% endfor %}

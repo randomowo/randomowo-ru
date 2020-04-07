@@ -9,7 +9,7 @@ def film_list(request):
     """
     """
     films = Film.objects.order_by("is_watched")
-    template_name = "index.html"
+    template_name = "user/index.html"
     context = {
         "page": "flist",
         "films": films,
@@ -21,7 +21,7 @@ def random_film(request):
     """
     """
     film = Film.objects.filter(is_watched=False).order_by("?").first()
-    template_name = "index.html"
+    template_name = "user/index.html"
     context = {
         "page": "random",
         "film": film,

@@ -1,0 +1,12 @@
+<div class="title">
+	Random film:
+</div>
+<div class="random_film">
+	{% if film.film_url %}
+		<a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
+			{{film.title}}
+		</a>
+	{% else %}
+		{{film.title}}
+	{% endif %}
+</div>

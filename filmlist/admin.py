@@ -1,5 +1,6 @@
 """
 """
+from challenges.models import FilmChallenge
 from django import forms
 from django.contrib import admin
 from filmlist.forms import FilmAdminForm
@@ -15,6 +16,9 @@ class FilmAdmin(admin.ModelAdmin):
     """
 
     form = FilmAdminForm
+    list_filter = [
+        "is_watched",
+    ]
     search_fields = [
         "title",
         "year",
@@ -30,6 +34,15 @@ class FilmAdmin(admin.ModelAdmin):
         "is_movie",
         "episodes",
     ]
+
+    def get_form(self, request, obj=None, **kwargs):
+        print(obj.is_challenge)
+        if obj.is_challenge:
+            if "challenge_is_done" not in self.fields:
+                self.fields.append("challenge_is_done")
+        elif "challenge_is_done" in self.fields:
+            self.fields.remove("challenge_is_done")
+        return super(FilmAdmin, self).get_form(request, obj=obj, **kwargs)
 
 
 class ActorAdmin(admin.ModelAdmin):

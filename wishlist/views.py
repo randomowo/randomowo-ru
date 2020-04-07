@@ -20,7 +20,7 @@ def wish_list(request):
                                 film_url=film_url)
             added = True
     wishes = Wish.objects.order_by("-pub_date")
-    template_name = "index.html"
+    template_name = "user/index.html"
     context = {
         "form": WishForm(),
         "page": "wlist",

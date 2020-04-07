@@ -8,6 +8,6 @@ def best_image_list(request):
     """
     """
     images = BestImage.objects.order_by("image")
-    template_name = "index.html"
+    template_name = "user/index.html"
     context = {"page": "bmoments", "images": images}
     return render(request, template_name, context)

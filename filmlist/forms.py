@@ -18,12 +18,31 @@ class FilmAdminForm(forms.ModelForm):
         validators=[MinValueValidator(1)],
     )
 
+    challenge_is_done = forms.BooleanField(required=False, )
+
     def __init__(self, *args, **kwargs):
         super(FilmAdminForm, self).__init__(*args, **kwargs)
         film = self.instance
+        film_challenge = FilmChallenge.objects.filter(film=film).first()
+        if film_challenge:
+            self.initial["challenge_is_done"] = film_challenge.is_done
+        else:
+            self.initial["challenge_is_done"] = None
         if film.title:
             series = Series.objects.filter(film=film).first()
             self.initial["episodes"] = series.episodes if series else None
+
+    def clean_title(self):
+        """
+        """
+        title = self.cleaned_data.get("title", None)
+        year = self.data.get("year", None)
+        film = Film.objects.filter(title=title).first()
+        print(self.changed_data)
+        if film and film.year == int(year) and "title" in self.changed_data:
+            raise forms.ValidationError("Film already exist")
+        else:
+            return title
 
     def clean_episodes(self):
         """
@@ -50,6 +69,12 @@ class FilmAdminForm(forms.ModelForm):
                 series.save()
             else:
                 Series.objects.create(film=film, episodes=episodes)
+        if film.is_challenge:
+            challange = FilmChallenge.objects.get(film=film)
+            challenge_is_done = self.cleaned_data.get("challenge_is_done",
+                                                      False)
+            challange.is_done = challenge_is_done
+            challange.save()
         return film
 
     class Meta:
@@ -59,7 +84,6 @@ class FilmAdminForm(forms.ModelForm):
 class SeriesAdminForm(forms.ModelForm):
     """
     """
-
     def __init__(self, *args, **kwargs):
         super(SeriesAdminForm, self).__init__(*args, **kwargs)
         self.fields["film"] = forms.ModelChoiceField(
