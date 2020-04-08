@@ -36,8 +36,7 @@ class FilmAdmin(admin.ModelAdmin):
     ]
 
     def get_form(self, request, obj=None, **kwargs):
-        print(obj.is_challenge)
-        if obj.is_challenge:
+        if obj and obj.is_challenge:
             if "challenge_is_done" not in self.fields:
                 self.fields.append("challenge_is_done")
         elif "challenge_is_done" in self.fields:

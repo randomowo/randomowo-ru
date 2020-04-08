@@ -9,15 +9,15 @@
 	<body>
 		{% include "header.html" %}
 		{% if not page or page == "flist" %}
-			{% include "flist.html" %}
+			{% include "user/flist.html" %}
 		{% elif page == "chlist" %}
-			{% include "chlist.html" %}
+			{% include "user/chlist.html" %}
 		{% elif page == "wlist" %}
-			{% include "wlist.html" %}
+			{% include "user/wlist.html" %}
 		{% elif page == "bmoments" %}
-			{% include "bmoments.html" %}
+			{% include "user/bmoments.html" %}
 		{% elif page == "random" %}
-			{% include "random.html" %}
+			{% include "user/random.html" %}
 		{% endif %}
 		{% include "footer.html" %}
 	</body>

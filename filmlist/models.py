@@ -100,7 +100,7 @@ class Film(models.Model):
     )
     is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
     is_movie = models.BooleanField(
-        default=False,
+        default=True,
         verbose_name="Is movie?",
     )
 

@@ -45,6 +45,13 @@ ol, ul {
 
 img {
 	border-radius: 5px;
+	max-width: 80%;
+	opacity: 1;
+	transition: opacity 1s;
+}
+
+img[data-src] {
+	opacity: 0;
 }
 
 .title {
@@ -76,4 +83,10 @@ img {
 
 .fcopyrighting {
     font-size: 12px;
+}
+
+.random_film {
+    font-size: 25px;
+    text-align: center;
+    margin: 50px 0px 50px 0px;
 }
