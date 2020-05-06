@@ -1,10 +1,10 @@
 """
 """
+from challenges.views import challenge_list
 from django.urls import path
+from filmlist.views import random_film
 from index.views import index_page
 from wishlist.views import wish_list
-from challenges.views import challenge_list
-from filmlist.views import random_film
 
 urlpatterns = [
     path("", index_page, name="index"),

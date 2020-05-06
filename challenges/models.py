@@ -7,6 +7,7 @@ from filmlist.models import Film
 class FilmChallenge(models.Model):
     """
     """
+
     film = models.OneToOneField(
         Film,
         on_delete=models.CASCADE,
@@ -30,6 +31,7 @@ class FilmChallenge(models.Model):
 class Challenge(models.Model):
     """
     """
+
     films = models.ManyToManyField(
         FilmChallenge,
         related_name="challenges",

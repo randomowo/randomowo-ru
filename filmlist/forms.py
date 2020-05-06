@@ -88,3 +88,21 @@ class SeriesAdminForm(forms.ModelForm):
         super(SeriesAdminForm, self).__init__(*args, **kwargs)
         self.fields["film"] = forms.ModelChoiceField(
             queryset=Film.objects.filter(is_movie=False))
+
+
+class RandomForm(forms.Form):
+    """
+    """
+
+    OPTIONS = [
+        ("all", "all"),
+        ("watched", "watched"),
+        ("unwatched", "unwatched"),
+    ]
+    for ch in Challenge.objects.all():
+        OPTIONS.append((f"ch_{ch.id}", ch.task))
+
+    filter_choice = forms.ChoiceField(required=False,
+                                      choices=OPTIONS,
+                                      label="",
+                                      initial="unwatched")

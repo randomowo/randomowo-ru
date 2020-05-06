@@ -1,8 +1,9 @@
 """
 """
-from django.db import models
 from django.conf import settings
+from django.db import models
 from utilities import compress_image
+
 
 class BestImage(models.Model):
     """

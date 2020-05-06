@@ -22,10 +22,8 @@ def index_page(request):
             return wish_list(request)
         elif "bmoments" in request.POST:
             return best_image_list(request)
-        elif "random" in request.POST:
+        elif "random" in request.POST or "random_choice" in request.POST:
             return random_film(request)
-        elif "fcheck" in request.POST:
-            print("fcheck")
     else:
         return film_list(request)
 
