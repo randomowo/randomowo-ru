@@ -18,10 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from bestmoments.views import webms
+from index.views import yesno
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("cinema/", include("index.urls")),
+    path("yesno/", yesno),
+    path("webms/", webms),
 #    path("cinema/admin", include("admin.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
