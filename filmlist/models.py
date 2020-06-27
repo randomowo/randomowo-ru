@@ -8,25 +8,6 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 
-class Actor(models.Model):
-    """
-    """
-
-    name = models.CharField(
-        max_length=100,
-        unique=True,
-        verbose_name="Actor name",
-    )
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = "Actor"
-        verbose_name_plural = "Actor"
-
-    def __str__(self):
-        return self.name
-
-
 class Director(models.Model):
     """
     """
@@ -82,14 +63,6 @@ class Film(models.Model):
         on_delete=models.CASCADE,
         related_name="film",
         verbose_name="director",
-    )
-    actor = models.ForeignKey(
-        Actor,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name="film",
-        verbose_name="Actor",
     )
     film_url = models.URLField(verbose_name="Url to film page", )
     rating = models.FloatField(

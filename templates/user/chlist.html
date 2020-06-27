@@ -31,7 +31,7 @@
 			{{ch}}
 		</a>
 	</li>
-	<ul id="{{ch.task}}">
+	<ul id="{{ch.task}}" display="none">
 		{% for film in ch.films.all %}
 		<li>{{film}}</li>
 		{% endfor %}

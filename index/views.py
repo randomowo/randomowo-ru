@@ -8,6 +8,7 @@ from django.shortcuts import render
 from filmlist.views import film_list
 from filmlist.views import random_film
 from wishlist.views import wish_list
+import random
 
 
 def index_page(request):
@@ -27,6 +28,14 @@ def index_page(request):
     else:
         return film_list(request)
 
+def yesno(request):
+    """
+    """
+    template_name = "user/yesno.html"
+    context = {
+        "answer": random.choice(["YES", "NO"]),
+    }
+    return render(request, template_name, context)
 
 @login_required
 def admin_index_page(request):
