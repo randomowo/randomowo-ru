@@ -1,7 +1,8 @@
 """
 """
-from challenges.models import Challenge
 from django.shortcuts import render
+
+from challenges.models import Challenge
 from filmlist.forms import RandomForm
 from filmlist.models import Film
 
@@ -11,9 +12,8 @@ def film_list(request):
     """
     films = Film.objects.order_by("is_watched")
     watched = films.filter(is_watched=True).count()
-    template_name = "user/index.html"
+    template_name = "user/cinema/flist.html"
     context = {
-        "page": "flist",
         "films": films,
         "films_watched": watched,
         "films_count": films.count(),
@@ -34,11 +34,11 @@ def random_film(request):
         film = Film.objects.filter(is_watched=False).order_by("?").first()
     else:
         film = (Challenge.objects.get(
-            pk=filter_choice.split("_")[1]).films.order_by("?").filter(is_done=False).first().film)
-    template_name = "user/index.html"
+            pk=filter_choice.split("_")[1]).films.order_by("?").filter(
+                is_done=False).first().film)
+    template_name = "user/cinema/random.html"
     context = {
-        "form": RandomForm(initial={"filter_choice": filter_choice}),
-        "page": "random",
         "film": film,
+        "form": RandomForm(initial={"filter_choice": filter_choice}),
     }
     return render(request, template_name, context)

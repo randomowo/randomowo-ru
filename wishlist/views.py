@@ -1,6 +1,7 @@
 """
 """
 from django.shortcuts import render
+
 from wishlist.forms import WishForm
 from wishlist.models import Wish
 
@@ -20,10 +21,9 @@ def wish_list(request):
                                 film_url=film_url)
             added = True
     wishes = Wish.objects.order_by("-pub_date")
-    template_name = "user/index.html"
+    template_name = "user/cinema/wlist.html"
     context = {
         "form": WishForm(),
-        "page": "wlist",
         "wishes": wishes,
         "added": added,
     }

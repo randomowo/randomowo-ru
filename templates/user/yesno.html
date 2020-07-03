@@ -1,27 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>Yes/No</title>
-		<link rel="stylesheet" Type="text/css" href="/static/index/css/index.css"/>
-	</head>
-	<style>
-            .center {
-		position: absolute;
-		width: 100px;
-		height: 50px;
-		top: 50%;
-    		left: 50%;
-    		margin-left: -50px; /* margin is -0.5 * dimension */
-    		margin-top: -25px; 
-            }
-        </style>
-	<body>
-		<div class="center">
-			<h1>
-				{{answer}}
-			</h1>
-		</div>
-	</body>
-</html>
+{% extends "base.html" %}
+
+{% block child_title %}
+<title>Yes/No</title>
+{% endblock %}
+
+{% block child_style %}
+<style>
+.center {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px; /* margin is -0.5 * dimension */
+    margin-top: -25px;
+}
+</style>
+{% endblock %}
+
+{% block child_body %}
+<div class="center">
+    <h1>
+        {{answer}}
+    </h1>
+</div>
+{% endblock %}

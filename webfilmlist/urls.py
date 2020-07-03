@@ -1,31 +1,27 @@
 """webfilmlist URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+
+from bestmoments.views import best_image_list
 from bestmoments.views import webms
+from challenges.views import challenge_list
+from filmlist.views import film_list
+from filmlist.views import random_film
 from index.views import yesno
+from wishlist.views import wish_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("cinema/", include("index.urls")),
+    path("cinema/", film_list, name="film_list"),
+    path("cinema/filmlist/", film_list, name="film_list"),
+    path("cinema/wishlist/", wish_list, name="wish_list"),
+    path("cinema/challenges/", challenge_list, name="challenge_list"),
+    path("cinema/random/", random_film, name="random_film"),
+    path("cinema/bestmoments/", best_image_list, name="best_image_list"),
     path("yesno/", yesno),
     path("webms/", webms),
-#    path("cinema/admin", include("admin.urls")),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,20 @@
+{% extends "usercinema.html" %}
+
+{% block child_body %}
+<div class="title">
+    Best moments:
+</div>
+<center>
+    {% if images %}
+    <ul>
+        {% for image in images %}
+        <li>
+            <img data-src="{{image}}" alt="" />
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</center>
+
+<script src="/static/index/js/image_load_on_scroll.js"></script>
+{% endblock %}
