@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     "challenges",
     "index",
     "bestmoments",
-    "jquery",
 ]
 
 MIDDLEWARE = [
