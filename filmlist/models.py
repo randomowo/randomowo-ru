@@ -65,12 +65,6 @@ class Film(models.Model):
         verbose_name="director",
     )
     film_url = models.URLField(verbose_name="Url to film page", )
-    rating = models.FloatField(
-        validators=[MinValueValidator(0.01),
-                    MaxValueValidator(10.0)],
-        blank=True,
-        null=True,
-    )
     is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
     is_movie = models.BooleanField(
         default=True,
