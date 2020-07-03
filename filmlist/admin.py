@@ -27,7 +27,6 @@ class FilmAdmin(admin.ModelAdmin):
         "film_url",
         "year",
         "director",
-        "rating",
         "is_watched",
         "is_movie",
         "episodes",
