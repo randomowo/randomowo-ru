@@ -32,7 +32,7 @@
     {% for ch in challenges %}
     <li>
         <a aria-expanded="false" id="{{ch.id}}" href="#" onclick="toggle('{{ch.task}}', '{{ch.id}}')">
-            {{ch}}
+            {{ch}} {% if ch.is_done %} [x] {% endif %}
         </a>
     </li>
     <ul id="{{ch.task}}" display="none">

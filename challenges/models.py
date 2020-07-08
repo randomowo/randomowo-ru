@@ -47,3 +47,11 @@ class Challenge(models.Model):
 
     def __str__(self):
         return self.task
+
+    @property
+    def is_done(self):
+        for film in self.films.all():
+            if (not film.is_done):
+                return False
+        return True
+
