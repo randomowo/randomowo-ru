@@ -3,6 +3,7 @@
 from django.db import models
 from filmlist.models import Film
 
+import math
 
 class FilmChallenge(models.Model):
     """
@@ -49,9 +50,6 @@ class Challenge(models.Model):
         return self.task
 
     @property
-    def is_done(self):
-        for film in self.films.all():
-            if (not film.is_done):
-                return False
-        return True
-
+    def progress(self):
+        chlist = [ch.is_done for ch in self.films.all()]
+        return int(100 * math.floor(chlist.count(True)/len(chlist)))
