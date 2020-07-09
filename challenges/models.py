@@ -52,4 +52,4 @@ class Challenge(models.Model):
     @property
     def progress(self):
         chlist = [ch.is_done for ch in self.films.all()]
-        return int(100 * math.floor(chlist.count(True)/len(chlist)))
+        return int(math.floor(100 * (chlist.count(True)/len(chlist))))
