@@ -1,5 +1,5 @@
 media
-static/admin
+static/djadmin
 static/*/fonts
 */migrations
 */__pycache__

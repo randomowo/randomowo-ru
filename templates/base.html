@@ -4,15 +4,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>
-        {% block child_title %}{% endblock %}
+        {% block title %}{% endblock %}
         </title>
         <link rel="stylesheet" Type="text/css" href="/static/index/css/index.css"/>
-        {% block child_style %}{% endblock %}
-        {% block child_head_js %}{% endblock %}
+        {% block link_styles %}{% endblock %}
+        {% block styles %}{% endblock %}
+        {% block head_js %}{% endblock %}
     </head>
     <body>
-        {% block child_header %}{% endblock %}
-        {% block child_body %}{% endblock %}
-        {% block child_footer %}{% endblock %}
+        {% block header %}{% endblock %}
+        {% block body %}{% endblock %}
+        {% block footer %}{% endblock %}
     </body>
 </html>

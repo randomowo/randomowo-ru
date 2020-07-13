@@ -1,13 +1,14 @@
 """
 """
-from challenges.models import FilmChallenge
 from django import forms
 from django.contrib import admin
+
+from challenges.models import FilmChallenge
 from filmlist.forms import FilmAdminForm
-from filmlist.forms import SeriesAdminForm
-from filmlist.models import Director
+from filmlist.forms import SeasonAdminForm
+from filmlist.models import Episode
+from filmlist.models import Season
 from filmlist.models import Film
-from filmlist.models import Series
 
 
 class FilmAdmin(admin.ModelAdmin):
@@ -25,37 +26,35 @@ class FilmAdmin(admin.ModelAdmin):
     fields = [
         "title",
         "film_url",
-        "year",
         "director",
+        "year",
         "is_watched",
         "is_movie",
-        "episodes",
     ]
 
-    def get_form(self, request, obj=None, **kwargs):
-        if obj and obj.is_challenge:
-            if "challenge_is_done" not in self.fields:
-                self.fields.append("challenge_is_done")
-        elif "challenge_is_done" in self.fields:
-            self.fields.remove("challenge_is_done")
-        return super(FilmAdmin, self).get_form(request, obj=obj, **kwargs)
+
+class SeasonAdmin(admin.ModelAdmin):
+    """
+    """
+    form = SeasonAdminForm
+    list_display = ["number"]
 
 
-class DirectorAdmin(admin.ModelAdmin):
+
+class EpisodeAdmin(admin.ModelAdmin):
     """
     """
 
-    list_display = ["name"]
-
-
-class SeriesAdmin(admin.ModelAdmin):
-    """
-    """
-
-    form = SeriesAdminForm
-    list_display = ["film"]
+    model = Episode
+    fields = [
+        "season",
+        "number",
+        "title",
+        "duration",
+    ]
+    list_display = ["number"]
 
 
 admin.site.register(Film, FilmAdmin)
-admin.site.register(Director, DirectorAdmin)
-admin.site.register(Series, SeriesAdmin)
+admin.site.register(Season, SeasonAdmin)
+admin.site.register(Episode, EpisodeAdmin)

@@ -2,73 +2,104 @@
 """
 import datetime
 
-import challenges as ch
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
 
+import challenges as ch
 
-class Director(models.Model):
+class Episode(models.Model):
     """
     """
 
-    name = models.CharField(
-        max_length=100,
-        unique=True,
-        verbose_name="Director name",
+    title = models.CharField(
+        max_length=120,
+        verbose_name="Episode title",
+        blank=True,
+        null=True,
+    )
+
+    number = models.IntegerField(
+        verbose_name="No.",
+        validators=[MinValueValidator(1)],
+    )
+
+    duration = models.IntegerField(
+        verbose_name="Episode duration (minutes)",
+        validators=[MinValueValidator(0)],
+        null=True,
+        blank=True,
+    )
+
+    season = models.ForeignKey(
+        "Season",
+        on_delete=models.CASCADE,
+        related_name="Episode",
+        verbose_name="Season",
     )
 
     class Meta:
-        ordering = ["name"]
-        verbose_name = "Director"
-        verbose_name_plural = "Director"
+        ordering = ["number"]
+        verbose_name = "Episode"
+        verbose_name_plural = "Episode"
 
     def __str__(self):
-        return self.name
+        return 's{0}e{1}: "{2}"'.format(self.season.number, self.number,
+                                        self.title)
 
 
-class Series(models.Model):
+class Season(models.Model):
     """
     """
 
-    film = models.OneToOneField(
+    film = models.ForeignKey(
         "Film",
         on_delete=models.CASCADE,
-        related_name="series",
+        related_name="Season",
         verbose_name="Film",
     )
 
-    episodes = models.IntegerField(verbose_name="Total episodes", )
+    number = models.IntegerField(
+        verbose_name="No.",
+        validators=[MinValueValidator(1)],
+    )
 
     class Meta:
-        ordering = ["film"]
-        verbose_name = "Series"
-        verbose_name_plural = "Series"
+        ordering = ["number"]
+        verbose_name = "Season"
+        verbose_name_plural = "Season"
 
     def __str__(self):
-        return "{} with {} ep".format(self.film.title, self.episodes)
+        return "{0} s No.{1}".format(self.film.title, self.number)
+
+    @property
+    def episodes(self):
+        """
+        """
+        return Episode.objects.filter(season=self).count()
 
 
 class Film(models.Model):
     """
     """
 
-    title = models.CharField(max_length=100, )
+    title = models.CharField(
+        max_length=120,
+        verbose_name="Title",
+    )
     year = models.IntegerField(validators=[
         MinValueValidator(1900),
-        MaxValueValidator(datetime.date.today().year + 1),
+        MaxValueValidator(datetime.date.today().year + 2),
     ])
-    director = models.ForeignKey(
-        Director,
-        on_delete=models.CASCADE,
-        related_name="film",
-        verbose_name="director",
+    director = models.CharField(
+        max_length=50,
+        verbose_name="Director",
     )
-    film_url = models.URLField(verbose_name="Url to film page", )
+    url = models.URLField(verbose_name="Url to film page", )
     is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
     is_movie = models.BooleanField(
         default=True,
-        verbose_name="Is movie?",
+        verbose_name="Is a movie?",
     )
 
     class Meta:
@@ -87,22 +118,41 @@ class Film(models.Model):
             film=self).first() else False)
 
     @property
+    def seasons(self):
+        """
+        """
+        return Season.objects.filter(film=self).count()
+
+    @property
     def episodes(self):
         """
         """
-        return Series.objects.get(film__id=self.id).episodes
+        seasons_list = Season.objects.filter(film=self).all()
+        episodes = [s.episodes for s in seasons_list]
+        return sum(episodes)
+
+    @property
+    def serial(self):
+        """
+        """
+        serial = {}
+        for season in Season.objects.filter(film=self).all():
+            serial[str(season.number)] = Episode.objects.filter(season=season).all()
+        return serial.items()
+
+
 
     @property
     def info(self):
         """
         """
         if self.is_movie:
-            return "in [{}] by {} [{}]".format(self.year, self.director.name,
+            return "in [{}] by {} [{}]".format(self.year, self.director,
                                                "x" if self.is_watched else " ")
         else:
             return "with {} ep in [{}] by {} [{}]".format(
                 self.episodes,
                 self.year,
-                self.director.name,
+                self.director,
                 "x" if self.is_watched else " ",
             )

@@ -1,19 +1,18 @@
-{% extends "usercinema.html" %}
+{% extends "user-cinema.html" %}
 
-{% block child_body %}
+{% block body %}
 <div class="title">
     Film list:
 </div>
-<center>
+<div class="centred">
     {{films_watched}}/{{films_count}}
-</center>
-<ol>
+</div>
+<div class="content-list">
     {% for film in films %}
-    <li>
         {% if film.is_movie %}
-            <div id="film">
+            <div class="film-block">
         {% else %}
-            <div id="serial">
+            <div class="serial-block">
         {% endif %}
                 {% if film.film_url %}
                     <a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
@@ -24,7 +23,6 @@
                 {% endif %}
                 {{film.info}}
             </div>
-    </li>
     {% endfor %}
-</ol>
+</div>
 {% endblock %}

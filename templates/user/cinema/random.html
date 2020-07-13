@@ -1,10 +1,10 @@
-{% extends "usercinema.html" %}
+{% extends "user-cinema.html" %}
 
-{% block child_body %}
+{% block body %}
 <div class="title">
     Random film:
 </div>
-<div class="random_film">
+<div class="random-film">
     {% if film.film_url %}
         <a href="{{film.film_url}}" target="_blank" rel="noopener noreferrer">
             {{film.title}}
@@ -13,14 +13,13 @@
         {{film.title}}
     {% endif %}
 </div>
-<br />
-<center>
-    <form action="/cinema/" method="POST">
+<div class="centered">
+    <form action="/cinema/random/" method="POST">
     {% csrf_token %}
             {{form}}
         <td>
-            <input class="button" type="submit" name="random_choice" value="Random" />
+            <input class="button" type="submit" name="random-choice" value="Random" />
         </td>
     </form>
-</center>
+</div>
 {% endblock %}

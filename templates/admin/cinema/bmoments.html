@@ -1,18 +1,18 @@
-{% extends "user-cinema.html" %}
+{% extends "admin-cinema.html" %}
 
 {% block body %}
 <div class="title">
     Best moments:
 </div>
-<div class="centered">
+<center>
     {% if images %}
-    <div class="image-list">
+    <ul>
         {% for image in images %}
-        <div class="image-block">
+        <li>
             <img data-src="{{image}}" alt="" />
-        </div>
+        </li>
         {% endfor %}
-    </div>
+    </ul>
     {% endif %}
 </center>
 
