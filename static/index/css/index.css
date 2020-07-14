@@ -65,7 +65,7 @@ img[data-src] {
     background-color: #E1E1E1;
     font-family: Podkova;
     font-size: 20px;
-    transition-duration: 0.7s;
+    transition-duration: 0.4s;
 } 
 
 .button:hover {

@@ -38,6 +38,8 @@ class Episode(models.Model):
         verbose_name="Season",
     )
 
+    is_watched = models.BooleanField(default=False, verbose_name="Is watched?")
+
     class Meta:
         ordering = ["number"]
         verbose_name = "Episode"
@@ -124,7 +126,7 @@ class Film(models.Model):
         return Season.objects.filter(film=self).count()
 
     @property
-    def episodes(self):
+    def episode_count(self):
         """
         """
         seasons_list = Season.objects.filter(film=self).all()
@@ -135,24 +137,7 @@ class Film(models.Model):
     def serial(self):
         """
         """
-        serial = {}
+        serial = []
         for season in Season.objects.filter(film=self).all():
-            serial[str(season.number)] = Episode.objects.filter(season=season).all()
-        return serial.items()
-
-
-
-    @property
-    def info(self):
-        """
-        """
-        if self.is_movie:
-            return "in [{}] by {} [{}]".format(self.year, self.director,
-                                               "x" if self.is_watched else " ")
-        else:
-            return "with {} ep in [{}] by {} [{}]".format(
-                self.episodes,
-                self.year,
-                self.director,
-                "x" if self.is_watched else " ",
-            )
+            serial.append((season, Episode.objects.filter(season=season).all()))
+        return serial

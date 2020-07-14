@@ -16,7 +16,7 @@ def admin_film_list(request):
     """
     """
     if request.method == "POST":
-        print(request.POST)
+        print(request.body)
 
     films = Film.objects.order_by("is_watched")
     watched = films.filter(is_watched=True).count()

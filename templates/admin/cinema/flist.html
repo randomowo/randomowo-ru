@@ -2,7 +2,8 @@
 
 {% block head_js %}
 {{ block.super }}
-<script async src="/static/admin/js/new-el.js"></script>
+<script src="/static/admin/js/new-el.js"></script>
+<script src="/static/admin/js/submitForm.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
@@ -14,107 +15,196 @@
     {{films_watched}}/{{films_count}}
 </div>
 <div class="content-list">
+    {% csrf_token %}
     {% include "admin/cinema/add/add-film.html" %}
     {% for film in films %}
-    <div id="film-block-{{film.id}}"
-         class="film-block"
-         onclick="toggle('film-content-{{film.title}}', 'film-block-{{film.id}}')"
-         aria-expanded="false">
-        <a href="#film-block-{{film.id}}">{{film.title}}</a>
-    </div>
-    <div id="film-content-{{film.title}}"
-         style="display:none;">
-        <form action="/admin/cinema/filmlist/" method="post">
-            {% csrf_token %}
-            <div class="film-text">
-                <input type="text"
-                       id="film-title"
-                       name="film-title"
-                       placeholder="Title"
-                       value="{{film.title}}" />
-            </div>
-            <div class="film-text">
-                <input type="text"
-                       id="film-url"
-                       name="film-url"
-                       placeholder="Url to film page"
-                       value="{{film.url}}" />
-            </div>
-            <div class="film-text">
-                <input type="text"
-                       id="film-director"
-                       name="film-director"
-                       placeholder="Director"
-                       value="{{film.director}}" />
-            </div>
-            <div class="film-number">
-                <input type="number"
-                       id="film-year"
-                       name="film-year"
-                       placeholder="Year"
-                       min="1900"
-                       max="{{next_year}}"
-                       step="1"
-                       value="{{film.year}}" />
-            </div>
-            <div class="film-label">
-                <label for="film-is-watched">Is watched?</label>
-            </div>
-            <div class="film-checkbox">
-                <input type="checkbox"
-                       id="film-is-watched"
-                       name="film-is-watched"
-                       {% if film.is_watched %} checked {% endif %} />
-            </div>
-            <div class="film-label">
-                <label for="film-is-movie">Is a movie?</label>
-            </div>
-            <div class="film-checkbox">
-                <input type="checkbox"
-                       id="film-is-movie{{film.id}}"
-                       name="film-is-movie"
-                       {% if film.is_movie %} checked {% endif %} />
-            </div>
-            {% if not film.is_movie %}
-            <div class="film-season-block{{film.id}}" style="{% if not film.is_movie %}display:none;{% endif %}">
-                {% for season, episodes in film.serial %}
-                <div class="film-number">
-                    <input type="number"
-                           id="film-season-number"
-                           name="film-season-number"
-                           min="1"
-                           value="{{season}}" />
-                </div>
-                {% for ep in episodes %}
-                <div class="film-episode-block_{{ep.id}}">
-                    <div class="film-number">
-                        <input type="number"
-                               id="film-episode-number"
-                               name="film-episode-number"
-                               placeholder="No."
-                               min="1"
-                               value="{{ep.number}}" />
-                    </div>
+    <div id="film-block"
+         class="film-block">
+        <div class="button"
+             id="button-film{{film.id}}"
+             onclick="toggle('film-content{{film.id}}', 'button-film{{film.id}}')">
+            {{film.title}}
+        </div>
+        <div class="film-content"
+             id="film-content{{film.id}}"
+             style="display:none;">
+            <form id="film-update-form{{film.id}}">
+                <div class="film-element">
                     <div class="film-text">
                         <input type="text"
-                               id="film-episode-title"
-                               name="film-episode-title"
-                               placeholder="Episode title"
-                               value="{{ep.title}}" />
+                               id="film-title"
+                               name="film-title"
+                               placeholder="Title"
+                               value="{{film.title}}" />
                     </div>
+                </div>
+                <div class="film-element">
+                    <div class="film-text">
+                        <input type="text"
+                               id="film-url"
+                               name="film-url"
+                               placeholder="Url to film page"
+                               value="{{film.url}}" />
+                    </div>
+                </div>
+                <div class="film-element">
+                    <div class="film-text">
+                        <input type="text"
+                               id="film-director"
+                               name="film-director"
+                               placeholder="Director"
+                               value="{{film.director}}"/>
+                    </div>
+                </div>
+                <div class="film-element">
                     <div class="film-number">
                         <input type="number"
-                               id="film-episode-duration"
-                               name="film-episode-duration"
-                               placeholder="Duration"
-                               value="{{ep.duration}}" />
+                               id="film-year"
+                               name="film-year"
+                               placeholder="Year"
+                               min="1900"
+                               max="{{next_year}}"
+                               step="1"
+                               value="{{film.year}}" />
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-        </form>
+                <div class="film-element">
+                    <div class="film-label">
+                        Is watched?
+                    </div>
+                    <div class="film-checkbox">
+                        <input type="checkbox"
+                               id="film-is-watched"
+                               name="film-is-watched"
+                               {% if film.is_watched %} checked {% endif %} />
+                    </div>
+                </div>
+                <div class="film-element">
+                    <div class="film-label">
+                        Is a movie?
+                    </div>
+                    <div class="film-checkbox">
+                        <input type="checkbox"
+                               id="film-is-movie{{film.id}}"
+                               name="film-is-movie"
+                               {% if film.is_movie %} checked {% endif %} />
+                    </div>
+                </div>
+                <div class="film-element">
+                    <div class="film-season-block"
+                         id="film-season-block{{film.id}}"
+                         {% if film.is_movie %} style="display:none" {% endif %}>
+                        <div class="button"
+                             id="button-season"
+                             onclick="addNewSeason('film-season-block{{film.id}}', '')">
+                            add season
+                        </div>
+                        {% for season, episodes in film.serial %}
+                        <div class="film-season"
+                             id="film-season_{{season.id}}">
+                            <fieldset id="new-season">
+                                <div class="season-element">
+                                    <div class="season-label">
+                                        Season No.
+                                    </div>
+                                    <div class="film-number">
+                                        <input type="number"
+                                               id="film-season-number{{season.id}}"
+                                               name="film-season-number"
+                                               min="1"
+                                               placeholder="No."
+                                               value="{{season.number}}"
+                                               required />
+                                    </div>
+                                </div>
+                                <div class="button"
+                                     id="button-season-remove"
+                                     onclick="removeEl('film-season_{{season.id}}')">
+                                    remove
+                                </div>
+                                <div class="film-season-episode-block"
+                                     id="film-season-episode-block_{{season.id}}">
+                                    <div class="button"
+                                         id="button-episode"
+                                         onclick="addNewEpisode('film-season-episode-block_{{season.id}}',
+                                         '{{season.id}}', '')">
+                                        add episode
+                                    </div>
+                                    {% for episode in episodes %}
+                                    <div class=film-season-episode"
+                                         id="film-season-episode">
+                                        <fieldset id="new-episode">
+                                            <div class="episode-element">
+                                                <div class="episode-label">
+                                                    Episode No.
+                                                </div>
+                                                <div class="film-number">
+                                                    <input type="number"
+                                                           id="film-episode-number"
+                                                           name="film-episode-number"
+                                                           placeholder="No."
+                                                           min="1"
+                                                           value="{{episode.number}}"
+                                                           required />
+                                                </div>
+                                            </div>
+                                            <div class="episode-element">
+                                                <div class="episode-label">
+                                                    Episode title
+                                                </div>
+                                                <div class="film-text">
+                                                    <input type="text"
+                                                           id="film-episode-title"
+                                                           name="film-episode-title"
+                                                           placeholder="Episode title"
+                                                           value="{{episode.title}}" />
+                                                </div>
+                                            </div>
+                                            <div class="episode-element">
+                                                <div class="episode-label">
+                                                    Episode duration (minutes)
+                                                </div>
+                                                <div class="film-number">
+                                                    <input type="number"
+                                                           id="film-episode-duration"
+                                                           name="film-episode-duration"
+                                                           placeholder="Duration"
+                                                           value="{{episode.duration}}" />
+                                                </div>
+                                            </div>
+                                            <div class="episode-element">
+                                                <div class="episode-label">
+                                                    Episode is_watched
+                                                </div>
+                                                <div class="film-checkbox">
+                                                    <input type="checkbox"
+                                                           id="film-episode-is-watched"
+                                                           name="film-episode-is-watched"
+                                                           {% if episode.is_watched %} checked {% endif %} />
+                                                    <input type="hidden"
+                                                           id="film-episode-is-watched-hidden"
+                                                           name="film-episode-is-watched"
+                                                           value="" />
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </fieldset>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="film-element">
+                    <div class="button"
+                         id="button-add-film"
+                         onclick="submitFilm('film-update-form{{film.id}}')">
+                        update
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     {% endfor %}
 </div>
@@ -123,11 +213,9 @@
         $("#film-season-block").toggle(!this.checked);
     });
     {% for film in films %}
-    {% if not film.is_movie %}
     $('#film-is-movie{{film.id}}').click(function() {
-        $("#film-season-block{{film.id}}").toggle(this.checked);
+        $("#film-season-block{{film.id}}").toggle(!this.checked);
     });
-    {% endif %}
     {% endfor %}
 </script>
 {% endblock %}

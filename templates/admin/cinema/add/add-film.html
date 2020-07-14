@@ -1,77 +1,92 @@
-<div id="film-add-block" class="film-add-block" onclick="" aria-expanded="false">
-    <div id="film-block"
-         class="film-block">
-        <div class="button"
-             id="button-film"
-             onclick="toggle('film-content', 'button-film')"
-             aria-expanded="false" >
-             <a href="#film-block">+</a>
-        </div>
-        <div id="film-content"
+<div id="film-block"
+     class="film-block">
+    <div class="button"
+         id="button-film"
+         onclick="toggle('film-content', 'button-film')">
+         +
+    </div>
+        <div class="film-content"
+             id="film-content"
              style="display:none;">
-            <form id="film-new-form" action="/admin/cinema/filmlist/" method="post">
-                {% csrf_token %}
-                <div class="film-text">
-                    <input type="text"
-                           id="film-title"
-                           name="film-title"
-                           placeholder="Title" 
-                           required />
+            <form id="film-add-form">
+                <div class="film-element">
+                    <div class="film-text">
+                        <input type="text"
+                               id="film-title"
+                               name="film-title"
+                               placeholder="Title"
+                               />
+                    </div>
                 </div>
-                <div class="film-text">
-                    <input type="text"
-                           id="film-url"
-                           name="film-url"
-                           placeholder="Url to film page"
-                           required />
+                <div class="film-element">
+                    <div class="film-text">
+                        <input type="text"
+                               id="film-url"
+                               name="film-url"
+                               placeholder="Url to film page"
+                               />
+                    </div>
                 </div>
-                <div class="film-text">
-                    <input type="text"
-                           id="film-director"
-                           name="film-director"
-                           placeholder="Director"
-                           required />
+                <div class="film-element">
+                    <div class="film-text">
+                        <input type="text"
+                               id="film-director"
+                               name="film-director"
+                               placeholder="Director"
+                               />
+                    </div>
                 </div>
-                <div class="film-number">
-                    <input type="number"
-                           id="film-year"
-                           name="film-year"
-                           placeholder="Year"
-                           min="1900"
-                           max="{{next_year}}"
-                           step="1"
-                           required />
+                <div class="film-element">
+                    <div class="film-number">
+                        <input type="number"
+                               id="film-year"
+                               name="film-year"
+                               placeholder="Year"
+                               min="1900"
+                               max="{{next_year}}"
+                               step="1"
+                               />
+                    </div>
                 </div>
-                <div class="film-label">
-                    <label for="film-is-watched">Is watched?</label>
+                <div class="film-element">
+                    <div class="film-label">
+                        Is watched?
+                    </div>
+                    <div class="film-checkbox">
+                        <input type="checkbox"
+                               id="film-is-watched"
+                               name="film-is-watched" />
+                    </div>
                 </div>
-                <div class="film-checkbox">
-                    <input type="checkbox"
-                           id="film-is-watched"
-                           name="film-is-watched" />
+                <div class="film-element">
+                    <div class="film-label">
+                        Is a movie?
+                    </div>
+                    <div class="film-checkbox">
+                        <input type="checkbox"
+                               id="film-is-movie"
+                               name="film-is-movie"
+                               checked />
+                    </div>
                 </div>
-                <div class="film-label">
-                    <label for="film-is-movie">Is a movie?</label>
+                <div class="film-element">
+                    <div class="film-season-block"
+                         id="film-season-block"
+                         style="display:none">
+                        <div class="button"
+                             id="button-season"
+                             onclick="addNewSeason('film-season-block', 'new')">
+                            add season
+                        </div>
+                    </div>
                 </div>
-                <div class="film-checkbox">
-                    <input type="checkbox"
-                           id="film-is-movie"
-                           name="film-is-movie"
-                           checked />
-                </div>
-                <div class="film-season-block"
-                     id="film-season-block"
-                     style="display:none">
-                     <div class="button"
-                          id="button-season"
-                          onclick="addNewSeason('film-season-block')">
-                         <a href="#"> add season </a>
-                     </div>
-                </div>
-                <div class="film-submit-button">
-                    <input type="submit" name="new-film" value="Add">
+                <div class="film-element">
+                    <div class="button"
+                         id="button-add-film"
+                         onclick="submitFilm('film-add-form')">
+                         add
+                    </div>
                 </div>
             </form>
         </div>
-    </div>
 </div>
