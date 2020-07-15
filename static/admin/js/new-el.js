@@ -6,6 +6,10 @@ addNewSeason = (block_id, is_new) => {
     <div class="film-season"
          id="film-season${is_new}_${season_numb}">
         <fieldset id="new-season">
+             <input type="hidden"
+                    id="film-season-id"
+                    name="film-season-id"
+                    value="" />
              <div class="season-element">
                 <div class="season-label">
                     Season No.
@@ -45,6 +49,10 @@ addNewEpisode = (block_id, sn, is_new) => {
     <div class=film-season-episode"
          id="film-season-episode${is_new}">
         <fieldset id="new-episode">
+            <input type="hidden"
+                   id="film-season-episode-id${is_new}"
+                   name="film-season-episode-id"
+                   value="" />
             <div class="episode-element">
                  <div class="episode-label">
                      Episode No.
@@ -88,10 +96,6 @@ addNewEpisode = (block_id, sn, is_new) => {
                     <input type="checkbox"
                            id="film-episode-is-watched${is_new}"
                            name="film-episode-is-watched" />
-                    <input type="hidden"
-                           id="film-episode-is-watched-hidden${is_new}"
-                           name="film-episode-is-watched"
-                           value="" />
                  </div>
             </div>
         </fieldset>

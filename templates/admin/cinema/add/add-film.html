@@ -9,13 +9,17 @@
              id="film-content"
              style="display:none;">
             <form id="film-add-form">
+                <input type="hidden"
+                       id="film-id"
+                       name="film-id"
+                       value="" />
                 <div class="film-element">
                     <div class="film-text">
                         <input type="text"
                                id="film-title"
                                name="film-title"
                                placeholder="Title"
-                               />
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -24,7 +28,7 @@
                                id="film-url"
                                name="film-url"
                                placeholder="Url to film page"
-                               />
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -33,7 +37,7 @@
                                id="film-director"
                                name="film-director"
                                placeholder="Director"
-                               />
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -45,7 +49,7 @@
                                min="1900"
                                max="{{next_year}}"
                                step="1"
-                               />
+                               required />
                     </div>
                 </div>
                 <div class="film-element">

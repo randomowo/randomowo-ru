@@ -3,7 +3,7 @@
 {% block head_js %}
 {{ block.super }}
 <script src="/static/admin/js/new-el.js"></script>
-<script src="/static/admin/js/submitForm.js"></script>
+<script src="/static/admin/js/form-actions.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
@@ -30,12 +30,24 @@
              style="display:none;">
             <form id="film-update-form{{film.id}}">
                 <div class="film-element">
+                    <div class="button"
+                         id="button-add-film"
+                         onclick="removeFilm('{{film.id}}')">
+                        remove
+                    </div>
+                </div>
+                <input type="hidden"
+                       id="film-id"
+                       name="film-id"
+                       value="{{film.id}}" />
+                <div class="film-element">
                     <div class="film-text">
                         <input type="text"
                                id="film-title"
                                name="film-title"
                                placeholder="Title"
-                               value="{{film.title}}" />
+                               value="{{film.title}}"
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -44,7 +56,8 @@
                                id="film-url"
                                name="film-url"
                                placeholder="Url to film page"
-                               value="{{film.url}}" />
+                               value="{{film.url}}"
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -53,7 +66,8 @@
                                id="film-director"
                                name="film-director"
                                placeholder="Director"
-                               value="{{film.director}}"/>
+                               value="{{film.director}}"
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -65,7 +79,8 @@
                                min="1900"
                                max="{{next_year}}"
                                step="1"
-                               value="{{film.year}}" />
+                               value="{{film.year}}"
+                               required />
                     </div>
                 </div>
                 <div class="film-element">
@@ -103,13 +118,17 @@
                         <div class="film-season"
                              id="film-season_{{season.id}}">
                             <fieldset id="new-season">
+                                <input type="hidden"
+                                       id="film-season-id"
+                                       name="film-season.id"
+                                       value="{{season.id}}" />
                                 <div class="season-element">
                                     <div class="season-label">
                                         Season No.
                                     </div>
                                     <div class="film-number">
                                         <input type="number"
-                                               id="film-season-number{{season.id}}"
+                                               id="film-season-number"
                                                name="film-season-number"
                                                min="1"
                                                placeholder="No."
@@ -134,6 +153,10 @@
                                     <div class=film-season-episode"
                                          id="film-season-episode">
                                         <fieldset id="new-episode">
+                                            <input type="hidden"
+                                                   id="film-season-episode-id"
+                                                   name="film-season-episode-id"
+                                                   value="{{episode.id}}" />
                                             <div class="episode-element">
                                                 <div class="episode-label">
                                                     Episode No.
@@ -181,10 +204,6 @@
                                                            id="film-episode-is-watched"
                                                            name="film-episode-is-watched"
                                                            {% if episode.is_watched %} checked {% endif %} />
-                                                    <input type="hidden"
-                                                           id="film-episode-is-watched-hidden"
-                                                           name="film-episode-is-watched"
-                                                           value="" />
                                                 </div>
                                             </div>
                                         </fieldset>
