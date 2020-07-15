@@ -32,7 +32,7 @@ addNewSeason = (block_id, is_new) => {
                  id="film-season-episode-block${is_new}_${season_numb}">
                 <div class="button"
                      id="button-episode"
-                     onclick="addNewEpisode('film-season-episode-block${is_new}_${season_numb}', '${season_numb}', 'new')">
+                     onclick="addNewEpisode('film-season-episode-block${is_new}_${season_numb}', 'new')">
                     add episode
                 </div>
             </div>
@@ -43,11 +43,13 @@ addNewSeason = (block_id, is_new) => {
     $(`#${block_id}`).append(new_block);
 }
 
-addNewEpisode = (block_id, sn, is_new) => {
+let episode_numb = 0;
+addNewEpisode = (block_id, is_new) => {
+    episode_numb++;
     is_new = is_new === '' ? '' : "-"+is_new;
     let new_block = `
     <div class=film-season-episode"
-         id="film-season-episode${is_new}">
+         id="film-season-episode${is_new}_${episode_numb}">
         <fieldset id="new-episode">
             <input type="hidden"
                    id="film-season-episode-id${is_new}"
@@ -97,6 +99,11 @@ addNewEpisode = (block_id, sn, is_new) => {
                            id="film-episode-is-watched${is_new}"
                            name="film-episode-is-watched" />
                  </div>
+            </div>
+            <div class="button"
+                 id="button-episode-remove"
+                 onclick="removeEl('film-season-episode${is_new}_${episode_numb}')">
+                 remove
             </div>
         </fieldset>
     </div>

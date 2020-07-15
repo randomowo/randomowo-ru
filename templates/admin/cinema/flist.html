@@ -151,7 +151,7 @@
                                     </div>
                                     {% for episode in episodes %}
                                     <div class=film-season-episode"
-                                         id="film-season-episode">
+                                         id="film-season-episode_{{episode.id}}">
                                         <fieldset id="new-episode">
                                             <input type="hidden"
                                                    id="film-season-episode-id"
@@ -205,6 +205,11 @@
                                                            name="film-episode-is-watched"
                                                            {% if episode.is_watched %} checked {% endif %} />
                                                 </div>
+                                            </div>
+                                            <div class="button"
+                                                 id="button-episode-remove"
+                                                 onclick="removeEl('film-season-episode_{{episode.id}}')">
+                                                remove
                                             </div>
                                         </fieldset>
                                     </div>

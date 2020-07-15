@@ -22,7 +22,6 @@ def add_new_episodes(episodes, season):
         duration = episode["duration"]
         if not duration:
             del episode["duration"]
-        print(episode)
         Episode.objects.create(**episode).save()
 
 
