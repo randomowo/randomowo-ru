@@ -1,0 +1,156 @@
+.film-block {
+    margin: 0px 0px 5px 0px;
+    display: block;
+    text-align: center;
+}
+
+.film-content {
+    padding: 10px 0px 10px 0px;
+    border-radius: 5px;
+    background-color: #D1D1D1;
+}
+
+.film-label {
+    text-align: left;
+    min-width: 65px;
+    font-size: 18px;
+}
+
+.film-field {
+    margin-right: -10px;
+    display: inline-block;
+}
+
+.film-field-block {
+    display: block;
+}
+
+.episode-label {
+    text-align: left;
+    min-width: 240px;
+    display: inline-block;
+}
+
+.episode-field {
+    margin-right: -15px;
+    display: inline-block;
+}
+
+.episode-field-block {
+    display: block;
+}
+
+.field-element,
+.season-field-block,
+.episode-element {
+    display: block;
+}
+
+.episode-fields {
+    text-align: center;
+    display: block;
+    min-width: 150px;
+}
+
+.season-field,
+.episode-label,
+.season-label,
+.film-label,
+.film-checkbox,
+.episode-checkbox {
+    display: inline-block;
+}
+
+.film-checkbox,
+.episode-checkbox {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.film-checkbox:hover {
+    background-color: #C1C1C1;
+}
+
+.episode-checkbox:hover {
+    background-color: #A1A1A1;
+}
+
+.episode-checked-box,
+.episode-checked-box:hover {
+    box-shadow: -3px 2px 2px 2px #A1A1A1;
+    background-color: #919191;
+}
+
+
+.film-checked-box,
+.film-checked-box:hover {
+    box-shadow: -3px 2px 2px 2px #C1C1C1;
+    background-color: #B1B1B1;
+}
+
+fieldset {
+    border: none;
+    border-radius: 0px;
+}
+
+.button:hover {
+    background-color: #D1D1D1;
+}
+
+#button-season,
+#button-episode {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#new-season {
+    margin: 0px 15px 0px 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    background-color: #C1C1C1;
+}
+
+#new-episode {
+    margin: 0px 15px 0px 15px;
+    background-color: #B1B1B1;
+}
+
+#button-season,
+.update-button:hover,
+.add-button:hover {
+    background-color: #C1C1C1;
+}
+
+.expanded-button {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: #D1D1D1 !important;
+}
+
+#button-episode,
+#button-season-remove:hover,
+#button-season:hover {
+    background-color: #B1B1B1;
+}
+
+#button-season-remove {
+    background-color: #C1C1C1;
+    margin-bottom: 10px;
+}
+
+.remove-button:hover,
+#button-episode:hover,
+#button-episode-remove:hover {
+    background-color: #A1A1A1;
+}
+
+.add-button,
+.update-button {
+    margin-top: 10px;
+}
+
+input[type=checkbox] {
+    display:none;
+}

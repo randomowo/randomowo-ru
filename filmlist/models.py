@@ -15,7 +15,6 @@ class Episode(models.Model):
     title = models.CharField(
         max_length=120,
         verbose_name="Episode title",
-        blank=True,
         null=True,
     )
 
@@ -28,7 +27,6 @@ class Episode(models.Model):
         verbose_name="Episode duration (minutes)",
         validators=[MinValueValidator(0)],
         null=True,
-        blank=True,
     )
 
     season = models.ForeignKey(
@@ -111,13 +109,6 @@ class Film(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.title, self.year)
-
-    @property
-    def is_challenge(self):
-        """
-        """
-        return (True if ch.models.FilmChallenge.objects.filter(
-            film=self).first() else False)
 
     @property
     def seasons(self):

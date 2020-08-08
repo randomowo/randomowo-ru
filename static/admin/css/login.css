@@ -1,0 +1,47 @@
+.title {
+    padding-bottom: 15px;
+}
+
+.block {
+    display: block;
+}
+
+.login-block {
+    display: block;
+}
+
+label {
+    display: inline-block;
+}
+
+input[type=text],
+input[type=submit],
+input[type=password] {
+    padding: 5px;
+    font-family: Podkova;
+    min-width: 290px;
+    font-size: 20px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    background-color: #E1E1E1;
+}
+
+input[type=password] {
+    margin: 5px 0px 5px 0px;
+    color: #0C1A46;
+}
+
+input[type=password]:hover {
+    background-color: #D0D0D0;
+}
+
+input[type=submit] {
+    margin-top: 15px;
+    transition-duration: 0.4s;
+} 
+
+input[type=submit]:hover {
+    background-color: #D0D0D0;
+}

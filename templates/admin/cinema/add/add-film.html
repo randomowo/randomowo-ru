@@ -2,95 +2,102 @@
      class="film-block">
     <div class="button"
          id="button-film"
-         onclick="toggle('film-content', 'button-film')">
-         +
+         onclick="toggle('film-content', 'button-film', '+')">
+        +
     </div>
-        <div class="film-content"
-             id="film-content"
-             style="display:none;">
-            <form id="film-add-form">
-                <input type="hidden"
-                       id="film-id"
-                       name="film-id"
-                       value="" />
-                <div class="film-element">
-                    <div class="film-text">
-                        <input type="text"
-                               id="film-title"
-                               name="film-title"
-                               placeholder="Title"
-                               required />
-                    </div>
+    <div class="film-content"
+         id="film-content"
+         style="display:none;">
+        <form id="film-add-form">
+            <input type="hidden"
+                   id="film-id"
+                   name="film-id"
+                   value="" />
+            <div class="film-field-block">
+                <div class="film-label">
+                    Title
                 </div>
-                <div class="film-element">
-                    <div class="film-text">
-                        <input type="text"
-                               id="film-url"
-                               name="film-url"
-                               placeholder="Url to film page"
-                               required />
-                    </div>
+                <div class="film-field">
+                    <input type="text"
+                           id="film-title"
+                           name="film-title"
+                           placeholder="Title"
+                           required />
                 </div>
-                <div class="film-element">
-                    <div class="film-text">
-                        <input type="text"
-                               id="film-director"
-                               name="film-director"
-                               placeholder="Director"
-                               required />
-                    </div>
+            </div>
+            <div class="film-field-block">
+                <div class="film-label">
+                    URL
                 </div>
-                <div class="film-element">
-                    <div class="film-number">
-                        <input type="number"
-                               id="film-year"
-                               name="film-year"
-                               placeholder="Year"
-                               min="1900"
-                               max="{{next_year}}"
-                               step="1"
-                               required />
-                    </div>
+                <div class="film-field">
+                    <input type="text"
+                           id="film-url"
+                           name="film-url"
+                           placeholder="Url to film page"
+                           required />
                 </div>
-                <div class="film-element">
-                    <div class="film-label">
-                        Is watched?
-                    </div>
-                    <div class="film-checkbox">
-                        <input type="checkbox"
-                               id="film-is-watched"
-                               name="film-is-watched" />
-                    </div>
+            </div>
+            <div class="film-field-block">
+                <div class="film-label">
+                    Director
                 </div>
-                <div class="film-element">
-                    <div class="film-label">
+                <div class="film-field">
+                    <input type="text"
+                           id="film-director"
+                           name="film-director"
+                           placeholder="Director"
+                           required />
+                </div>
+            </div>
+            <div class="film-field-block">
+                <div class="film-label">
+                    Year
+                </div>
+                <div class="film-field">
+                    <input type="number"
+                           id="film-year"
+                           name="film-year"
+                           placeholder="Year"
+                           min="1900"
+                           max="{{next_year}}"
+                           step="1"
+                           required />
+                </div>
+            </div>
+            <div class="film-element">
+                <div class="film-checkbox"
+                     id="film-is-watched"
+                     onclick="toggleCheckbox('film-is-watched', 'film', '')" >
+                         Is watched?
+                     </div>
+                    <input type="checkbox"
+                           name="film-is-watched" />
+                <div class="film-checkbox film-checked-box"
+                     id="film-is-movie"
+                     onclick="toggleCheckbox('film-is-movie', 'film', 'film-season-block')">
                         Is a movie?
                     </div>
-                    <div class="film-checkbox">
-                        <input type="checkbox"
-                               id="film-is-movie"
-                               name="film-is-movie"
-                               checked />
-                    </div>
-                </div>
-                <div class="film-element">
-                    <div class="film-season-block"
-                         id="film-season-block"
-                         style="display:none">
-                        <div class="button"
-                             id="button-season"
-                             onclick="addNewSeason('film-season-block', 'new')">
-                            add season
-                        </div>
-                    </div>
-                </div>
-                <div class="film-element">
+                    <input type="checkbox"
+                           name="film-is-movie"
+                           checked />
+            </div>
+            <div class="film-element">
+                <div class="film-season-block"
+                     id="film-season-block"
+                     style="display:none">
                     <div class="button"
-                         id="button-add-film"
-                         onclick="submitFilm('film-add-form')">
-                         add
+                         id="button-season"
+                         onclick="addNewSeason('film-season-block', 'new')">
+                        add season
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="film-element">
+                <div class="button add-button"
+                     onclick="submitFilm('film-add-form')">
+                    add
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

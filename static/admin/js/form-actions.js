@@ -80,20 +80,24 @@ submitFilm = (form_id) => {
         });
 }
 
-removeFilm = (filmid) => {
-    let token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-    data = {
-        "csrfmiddlewaretoken": token,
-        "film_id": filmid,
+removeFilm = (filmid, film_name) => {
+    if (confirm(`Delete ${film_name}?`)) {
+        let token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        data = {
+            "csrfmiddlewaretoken": token,
+            "film_id": filmid,
+        }
+        fetch("/admin/cinema/filmlist/", {
+            method: "DELETE",
+            headers: {
+                "X-CSRFToken": token,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => getPage());
     }
-    fetch("/admin/cinema/filmlist/", {
-        method: "DELETE",
-        headers: {
-            "X-CSRFToken": token,
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => getPage());
 }
+
+

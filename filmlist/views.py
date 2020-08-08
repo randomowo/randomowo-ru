@@ -3,10 +3,10 @@
 import json
 from datetime import date
 
-from challenges.models import FilmChallenge
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from filmlist.forms import RandomForm
 from filmlist.models import Episode
 from filmlist.models import Film
@@ -22,6 +22,7 @@ def add_new_episodes(episodes, season):
         duration = episode["duration"]
         if not duration:
             del episode["duration"]
+        print(episode)
         Episode.objects.create(**episode).save()
 
 
@@ -33,7 +34,7 @@ def add_new_seasons(seasons, film):
         new_season = Season.objects.create(number=int(season["number"]),
                                            film=film)
         new_season.save()
-        add_new_episodes(episodes, season)
+        add_new_episodes(episodes, new_season)
 
 
 @login_required(login_url="/login?next=/admin/cinema/filmlist/")
@@ -56,7 +57,7 @@ def admin_film_list(request):
             year=film_json["year"],
             director=film_json["director"],
         ).first()
-        db_film_f = db_film_f if db_film_f else None
+        db_film_f = db_film_f or None
         # update
         if db_film:
             for key, val in film_json.items():
@@ -64,22 +65,14 @@ def admin_film_list(request):
             db_film.save()
             serial = db_film.serial
             if serial:
-                new_seasons = list(
-                    filter(
-                        None,
-                        [
-                            new_season if new_season["id"] == "" else None
-                            for new_season in seasons
-                        ],
-                    ))
-                update_seasons = list(
-                    filter(
-                        None,
-                        [
-                            new_season if new_season["id"] != "" else None
-                            for new_season in seasons
-                        ],
-                    ))
+                new_seasons = [
+                    new_season for new_season in seasons
+                    if new_season["id"] == ""
+                ]
+                update_seasons = [
+                    new_season for new_season in seasons
+                    if new_season["id"] != ""
+                ]
                 for season, episodes in serial:
                     new_season_info = None
                     for new_season in update_seasons:
@@ -90,24 +83,16 @@ def admin_film_list(request):
                     else:
                         season.number = int(new_season_info["number"])
                         season.save()
-                        new_episodes = list(
-                            filter(
-                                None,
-                                [
-                                    new_episode
-                                    if new_episode["id"] == "" else None for
-                                    new_episode in new_season_info["episodes"]
-                                ],
-                            ))
-                        update_episodes = list(
-                            filter(
-                                None,
-                                [
-                                    new_episode
-                                    if new_episode["id"] != "" else None for
-                                    new_episode in new_season_info["episodes"]
-                                ],
-                            ))
+                        new_episodes = [
+                            new_episode
+                            for new_episode in new_season_info["episodes"]
+                            if new_episode["id"] == ""
+                        ]
+                        update_episodes = [
+                            new_episode
+                            for new_episode in new_season_info["episodes"]
+                            if new_episode["id"] != ""
+                        ]
                         for episode in episodes:
                             new_episode_info = None
                             for new_episode in update_episodes:
@@ -116,11 +101,14 @@ def admin_film_list(request):
                             if not new_episode_info:
                                 episode.delete()
                             else:
-                                episode.number = int(new_episode_info["number"])
+                                episode.number = int(
+                                    new_episode_info["number"])
                                 if new_episode_info["duration"]:
-                                    episode.duration = int(new_episode_info["duration"])
+                                    episode.duration = int(
+                                        new_episode_info["duration"])
                                 episode.title = new_episode_info["title"]
-                                episode.is_watched = new_episode_info["is_watched"]
+                                episode.is_watched = new_episode_info[
+                                    "is_watched"]
                                 episode.save()
                         add_new_episodes(new_episodes, season)
                 if not (new_seasons or update_seasons):
@@ -140,17 +128,14 @@ def admin_film_list(request):
         else:
             return HttpResponse(status=400)
     if request.method == "GET":
-        films = Film.objects.order_by("is_watched")
-        watched = films.filter(is_watched=True).count()
+        films = Film.objects.all()
         template_name = "admin/cinema/flist.html"
         context = {
-            "films": films,
-            "films_watched": watched,
+            "films_watched": films.filter(is_watched=True).count(),
             "films_count": films.count(),
             "next_year": date.today().year + 1,
         }
         return render(request, template_name, context)
-
 
 def film_list(request):
     """

@@ -1,0 +1,19 @@
+input[type=text],
+input[type=number] {
+    margin: 5px 0px 5px 0px;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #E1E1E1;
+    color: #0C1A46;
+    text-align: center;
+}
+
+input[type=text]:hover,
+input[type=text]:focus,
+input[type=number]:hover,
+input[type=number]:focus {
+    background-color: #D0D0D0;
+}
+

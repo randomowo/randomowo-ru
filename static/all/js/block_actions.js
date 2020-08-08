@@ -1,10 +1,15 @@
-toggle = (id, id2) => {
-    let n = document.getElementById(id);
+toggle = (id, id2, name) => {
+    const n = document.getElementById(id);
+    const el = document.getElementById(id2);
     if (n.style.display != 'none') {
         n.style.display = 'none';
-        document.getElementById(id2).setAttribute('aria-expanded', 'false');
+        el.setAttribute('aria-expanded', 'false');
+        el.textContent = name;
+        el.classList.remove("expanded-button")
     } else {
         n.style.display = '';
-        document.getElementById(id2).setAttribute('aria-expanded', 'true');
+        el.setAttribute('aria-expanded', 'true');
+        el.textContent = "^";
+        el.classList.add("expanded-button")
     }
 }

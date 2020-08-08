@@ -11,16 +11,18 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 from filmlist.views import film_list
+from filmlist.api_views import get_films
 from filmlist.views import admin_film_list
 from filmlist.views import random_film
 from index.views import yesno
 from wishlist.views import wish_list
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+#    path("admin/", admin.site.urls),
     path("login/", loginpage, name="login_page"),
     path("logout/", logoutpage, name="logout_page"),
     path("admin/cinema/filmlist/", admin_film_list, name="admin_film_list"),
+    path("api/filmlist/", get_films, name="api_get_films"),
 #    path("admin/cinema/challenges/", , name="admin_challenge_list"),
 #    path("admin/cinema/wishlist/", , name="admin_wish_list"),
 #    path("admin/cinema/bestmoments/", , name="admin_best_image_list"),

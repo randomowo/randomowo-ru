@@ -4,4 +4,4 @@ static/*/fonts
 */migrations
 */__pycache__
 __pycache__
-randomoworu/settings.py
+randomoworu/local_settings.py

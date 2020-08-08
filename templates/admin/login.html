@@ -1,20 +1,39 @@
 {% extends "admin-base.html" %}
 
+{% block link_styles %}
+<link rel="stylesheet" href="/static/admin/css/base.css" />
+<link rel="stylesheet" href="/static/admin/css/login.css" />
+{% endblock %}
 {% block title %}
 login
 {% endblock %}
 
 {% block body %}
-<div class="title">
+<div class="title centered">
     Login
 </div>
-<form action="" method="POST">
-    {% csrf_token %}
-    {% if error %}
+<div class="centered">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% if error %}
         {{ error }}
-    {% endif %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Log in"/>
-    <input type="hidden" name="next" value="{{request.GET.next}}"/>
-</form>
+        {% endif %}
+        <div class="login-block">
+            <input type="text"
+                   name="username"
+                   maxlength="25"
+                   placeholder="username"
+                   required />
+        </div>
+        <div class="login-block">
+            <input type="password"
+                   name="password"
+                   maxlength="30"
+                   placeholder="password"
+                   required />
+        </div>
+        <input type="submit" name="submit" value="Log in"/>
+        <input type="hidden" name="next" value="{{request.GET.next}}"/>
+    </form>
+</div>
 {% endblock %}
