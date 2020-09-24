@@ -18,8 +18,8 @@ validateForm = (form) => {
 }
 
 submitFilm = (form_id) => {
-    const film_form = document.getElementById(form_id);
-    let token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    const film_form = $(`#${form_id}`)[0];
+    let token = $('input[name="csrfmiddlewaretoken"]').val();
     data = {
         "csrfmiddlewaretoken": token,
     }
@@ -27,19 +27,18 @@ submitFilm = (form_id) => {
         return;
     }
     const film = {
-        "id": film_form.elements[0].value,
-        "title": film_form.elements[1].value,
-        "url": film_form.elements[2].value,
-        "director": film_form.elements[3].value,
-        "year": film_form.elements[4].value,
-        "is_watched": film_form.elements[5].checked,
-        "is_movie": film_form.elements[6].checked,
+        "id": film_form[0].value,
+        "title": film_form[1].value,
+        "url": film_form[2].value,
+        "director": film_form[3].value,
+        "year": film_form[4].value,
+        "is_watched": film_form[5].checked,
+        "is_movie": film_form[6].checked,
         "seasons": []
     }
     if (!film["is_movie"]) {
-        const film_form_list = film_form.querySelectorAll("fieldset");
+        const film_form_list = $('fieldset', film_form);
         for (let i=0; i < film_form_list.length; i++) {
-            const form = film_form_list[i];
             if (!validateForm(form)) {
                 return;
             }
@@ -62,22 +61,26 @@ submitFilm = (form_id) => {
         }
     }
     data["film"] = film;
-    fetch("/admin/cinema/filmlist/", {
+    $.ajax({
+        url: "/admin/cinema/filmlist/",
         method: "POST",
         headers: {
             "X-CSRFToken": token,
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data),
-    })
-        .then(response => {
+        data: JSON.stringify(data),
+        success: response => {
             if (response.status === 400) {
                 alert("Bad Request");
             } else {
                 getPage();
             }
-        });
+        },
+        error: err => {
+            alert("Bad Request");
+        }
+    });
 }
 
 removeFilm = (filmid, film_name) => {
@@ -87,16 +90,28 @@ removeFilm = (filmid, film_name) => {
             "csrfmiddlewaretoken": token,
             "film_id": filmid,
         }
-        fetch("/admin/cinema/filmlist/", {
+        $.ajax({
+            url:"/admin/cinema/filmlist/",
             method: "DELETE",
             headers: {
                 "X-CSRFToken": token,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data),
-        })
-            .then(response => getPage());
+            data: JSON.stringify(data),
+            success: response => {
+                if (response.status === 400) {
+                    alert("Bad Request");
+                } else {
+                    $(`#film-update-form${filmid}`).parent().parent().remove();
+                    var count = $('input[name="count"]');
+                    count.val(count.val()-1);
+                }
+            },
+            error: err => {
+                alert("Bad Request");
+            }
+        });
     }
 }
 

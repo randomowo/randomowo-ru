@@ -118,6 +118,7 @@ fieldset {
 }
 
 #button-season,
+#button-remove-film:hover,
 .update-button:hover,
 .add-button:hover {
     background-color: #C1C1C1;
