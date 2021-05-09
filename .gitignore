@@ -5,3 +5,4 @@ static/*/fonts
 */__pycache__
 __pycache__
 randomoworu/local_settings.py
+.venv
