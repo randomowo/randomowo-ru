@@ -1,7 +1,4 @@
-media
-static/admin
-static/*/fonts
-*/migrations
+old
 */__pycache__
 __pycache__
-randomoworu/settings.py
+.venv
