@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      context: './backend'
+      dockerfile: 'Dockerfile.dev'
+
+    environment:
+      PYTHONMALLOC: 'debug'
+      PYTHONASYNCIODEBUG: '1'
+
+    ports:
+      - '8080:8080'
+
+    volumes:
+      - './backend/src:/var/www/randomowo-ru/app/src:Z'
+      #- './backned/libs:/var/www/randomowo-ru/libs:Z'
+
+  db:
+    image: 'postgres'

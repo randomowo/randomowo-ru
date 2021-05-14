@@ -1,0 +1,20 @@
+[not authed]
+/ -> filmlist
+/filmlist -> filmlist
+/login -> login
+/challenges -> challenges
+/wishlist -> wishlist
+/yes-no -> yes-no
+/queue -> queue
+
+[authed]
+/ -> admin/filmlist
+/filmlist -> admin/filmlist
+/login -> admin/filmlist
+/admin -> admin - list of services (filmlist, wishlist, etc.)
+/challenges -> admin/challenges
+/wishlist -> admin/wishlist
+/yes-no -> yes-no
+/queue -> admin/queue
+
+# API

@@ -1,0 +1,19 @@
+FROM snakepacker/python:all as builder
+WORKDIR /usr/share/python3/app
+
+COPY requiremets.txt .
+RUN python3.9 -m venv venv
+# TODO: add custom libs
+RUN ./venv/bin/pip install -U -r requiremets.txt
+
+RUN find-libdeps . > pkgdeps.txt
+
+FROM snakepacker/python:3.9
+WORKDIR /var/www/randomowo-ru/app
+
+COPY --from=builder /usr/share/python3/app /var/www/randomowo-ru/app
+#RUN cat pkgdeps.txt | xargs apt-install
+
+EXPOSE 8080
+
+CMD ["./venv/bin/python", "src/main.py"]
